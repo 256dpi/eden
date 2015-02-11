@@ -1,7 +1,6 @@
 #include <Adafruit_NeoPixel.h>
 
-#define NUM 16
-#define PRE 10
+#define PRE 100
 
 Adafruit_NeoPixel animation_pixels = Adafruit_NeoPixel(16, RING);
 unsigned long long animation_last_step = 0;
@@ -40,14 +39,6 @@ void animation_one(int i, int r, int g, int b, int d) {
   p->cr = (r * PRE - p->r) / p->s;
   p->cg = (g * PRE - p->g) / p->s;
   p->cb = (b * PRE - p->b) / p->s;
-  
-  Serial.print(p->cr);
-  Serial.print("-");
-  Serial.print(p->cg);
-  Serial.print("-");
-  Serial.print(p->cb);
-  Serial.print("-");
-  Serial.println(p->s);
 }
 
 void animation_loop() {
@@ -64,7 +55,6 @@ void animation_step() {
     animation_pixel* p = &animation_state[i];
     
     if(p->s > 0) {
-      //Serial.println(i);
       p->r = p->r + p->cr;
       p->g = p->g + p->cg;
       p->b = p->b + p->cb;
