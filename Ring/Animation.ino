@@ -1,5 +1,8 @@
 #include <Adafruit_NeoPixel.h>
 
+#define NUM 16
+#define PRE 10
+
 Adafruit_NeoPixel animation_pixels = Adafruit_NeoPixel(16, RING);
 unsigned long long animation_last_step = 0;
 int animation_interval = 0;
@@ -22,7 +25,7 @@ void animation_start(int interval) {
 }
 
 void animation_all(int r, int g, int b, int d) {
-  for(int i=0; i<16; i++) {
+  for(int i=0; i<NUM; i++) {
     animation_one(i, r, g, b, d);
   }
 }
@@ -34,9 +37,9 @@ void animation_one(int i, int r, int g, int b, int d) {
   
   animation_pixel* p = &animation_state[i];
   p->s = d / animation_interval;
-  p->cr = (r - p->r) / p->s;
-  p->cg = (g - p->g) / p->s;
-  p->cb = (b - p->b) / p->s;
+  p->cr = (r * PRE - p->r) / p->s;
+  p->cg = (g * PRE - p->g) / p->s;
+  p->cb = (b * PRE - p->b) / p->s;
   
   Serial.print(p->cr);
   Serial.print("-");
@@ -57,7 +60,7 @@ void animation_loop() {
 void animation_step() {
   boolean dirty = false;
   
-  for(int i=0; i<16; i++) {
+  for(int i=0; i<NUM; i++) {
     animation_pixel* p = &animation_state[i];
     
     if(p->s > 0) {
@@ -66,7 +69,7 @@ void animation_step() {
       p->g = p->g + p->cg;
       p->b = p->b + p->cb;
       
-      animation_pixels.setPixelColor(i, animation_pixels.Color(p->r, p->g, p->b));
+      animation_pixels.setPixelColor(i, animation_pixels.Color(p->r / PRE, p->g / PRE, p->b / PRE));
       dirty = true;
       p->s--;
     }
