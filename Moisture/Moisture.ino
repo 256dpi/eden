@@ -39,7 +39,7 @@ void loop() {
   int v2 = 1023 - analogRead(IN);
   
   int avg = (v1 + v2) / 2;
-  client.publish("/moisture", String(avg));
+  client.publish("/moisture.n", String(avg));
 }
 
 void flip(boolean flip){
