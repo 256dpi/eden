@@ -30,8 +30,8 @@ void keyPressed() {
     client.publish("/ring/sleep");
   } else if(keyCode == 39) {
     client.publish("/ring/wake");
-  } else {
-    println(keyCode);
+  } else if(keyCode >= 48 && keyCode <= 57) {
+    client.publish("/ring/display", Integer.toString(keyCode - 48));
   }
 }
 
