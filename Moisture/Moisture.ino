@@ -6,6 +6,7 @@
 #define F1 6
 #define F2 7
 #define T 1000
+#define LED 13
 
 YunClient net;
 MQTTClient client("connect.shiftr.io", 1883, net);
@@ -15,10 +16,12 @@ void setup() {
   Serial.begin(9600);
   pinMode(F1, OUTPUT);
   pinMode(F2, OUTPUT);
+  digitalWrite(LED, LOW);
   
   Serial.println("connecting...");
   if (client.connect("eden1", "5938e5400448b62b", "e53d9b341079b265ec2ea7a3da6a6fe0")) {
     Serial.println("connected!");
+    digitalWrite(LED, HIGH);
   } else {
     Serial.println("not connected!");
   }
