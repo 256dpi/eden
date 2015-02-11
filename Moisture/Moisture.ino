@@ -19,7 +19,7 @@ void setup() {
   digitalWrite(LED, LOW);
   
   Serial.println("connecting...");
-  if (client.connect("eden1", "5938e5400448b62b", "e53d9b341079b265ec2ea7a3da6a6fe0")) {
+  if (client.connect("moisture", "5938e5400448b62b", "e53d9b341079b265ec2ea7a3da6a6fe0")) {
     Serial.println("connected!");
     digitalWrite(LED, HIGH);
   } else {
@@ -51,4 +51,5 @@ void flip(boolean flip){
     digitalWrite(F2, HIGH);
   }
 }
+
 void messageReceived(String topic, char * payload, unsigned int length) {}
