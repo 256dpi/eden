@@ -1,7 +1,7 @@
 /**
- * POT - Eden Project
+ * Pot - Pot Controller
  *
- * A networked pot.
+ * Eden Project: A networked pot.
  */
 
 #include <Bridge.h>

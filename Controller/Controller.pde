@@ -1,3 +1,9 @@
+/**
+ * Controller - System Controller
+ *
+ * Eden Project: A networked pot.
+ */
+
 import processing.mqtt.*;
 
 MQTTClient client;
