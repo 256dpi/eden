@@ -18,15 +18,14 @@ void setup() {
   Bridge.begin();
   Serial.begin(9600);
   
+  Serial.println("Hello Pot!");
+  
   moisture_setup();
   ring_setup();
+  touch_setup();
 
   if(client.connect("pot1", "5938e5400448b62b", "e53d9b341079b265ec2ea7a3da6a6fe0")) {
-    client.subscribe("/ring/on");
-    client.subscribe("/ring/off");
-    client.subscribe("/ring/wake");
-    client.subscribe("/ring/sleep");
-    client.subscribe("/ring/display");
+    client.subscribe("/ring/+");
     
     isConnected = true;
     ring_all(255, 255, 255, 1000);
@@ -38,6 +37,7 @@ void loop() {
     client.loop();
     moisture_loop();
     ring_loop();
+    touch_loop();
     
     if(!isAnimated && millis() > 5000) {
       ring_all(0, 0, 0, 500);
@@ -77,5 +77,19 @@ void messageReceived(String topic, char * payload, unsigned int len) {
 
 void moisture_read(int value) {
   client.publish("/moisture.n", String(value));
+}
+
+/* Touch */
+
+void touch_on(int pin) {
+  if(pin == 0) {  
+    client.publish("/touch/on");
+  }
+}
+
+void touch_off(int pin) {
+  if(pin == 0) {
+    client.publish("/touch/off");
+  }
 }
 
