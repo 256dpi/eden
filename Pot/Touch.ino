@@ -1,5 +1,9 @@
 /**
- * Touch Sensing API 
+ * Touch Sensing API
+ * 
+ * Callbacks:
+ * - touch_on(int pin)
+ * - touch_off(int pin)
  */
 
 #include <Wire.h>

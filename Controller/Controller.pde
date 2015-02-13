@@ -8,27 +8,31 @@ import processing.mqtt.*;
 
 MQTTClient client;
 
-String value;
+String moisture;
+String temperature;
 String touch;
 
 void setup() {
-  size(200, 150);
+  size(200, 200);
   client = new MQTTClient(this);
   client.connect("mqtt://5938e5400448b62b:e53d9b341079b265ec2ea7a3da6a6fe0@connect.shiftr.io", "controller");
   client.subscribe("/moisture.n");
+  client.subscribe("/temperature.n");
   client.subscribe("/touch/+");
-  value = new String("...");
+  moisture = new String("..."); 
+  temperature = new String("...");
   touch = new String("...");
   
   fill(0);
-  textSize(50);
+  textSize(40);
   textAlign(CENTER);
 }
 
 void draw() {
   background(255);
-  text(value, width/2, height / 2 - 10);
-  text(touch, width/2, height / 2 + 50);
+  text(moisture, width/2, 50);
+  text(temperature, width/2, 100);
+  text(touch, width/2, 150);
 }
 
 void keyPressed() {
@@ -47,7 +51,9 @@ void keyPressed() {
 
 void messageReceived(String topic, byte[] payload) {
   if(topic.equals("/moisture/n")) {
-    value = new String(payload);
+    moisture = new String(payload);
+  } else if(topic.equals("/temperature/n")) {
+    temperature = new String(payload);
   } else if(topic.equals("/touch/on")) {
     touch = "on";
     client.publish("/ring/wake");

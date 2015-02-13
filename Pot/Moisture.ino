@@ -1,14 +1,14 @@
 /**
  * Moisture Sensor API
  *
- * Callback:
+ * Callbacks:
  * - moisture_read(int value);
  */
 
 #define M_R1 6 // Rod 1 Pin
 #define M_R2 7 // Rod 2 Pin
 #define M_IN 0 // Read Pin
-#define M_T 1000 // Read Interval (ms)
+#define M_T 2000 // Read Interval (ms)
 
 long long moisture_last_action = 0;
 int moisture_state = 0;

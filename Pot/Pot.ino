@@ -29,6 +29,8 @@ void setup() {
     
     isConnected = true;
     ring_all(255, 255, 255, 1000);
+  } else {
+    ring_all(255, 0, 0, 1000);
   }
 }
 
@@ -38,6 +40,7 @@ void loop() {
     moisture_loop();
     ring_loop();
     touch_loop();
+    temperature_loop();
     
     if(!isAnimated && millis() > 5000) {
       ring_all(0, 0, 0, 500);
@@ -91,5 +94,11 @@ void touch_off(int pin) {
   if(pin == 0) {
     client.publish("/touch/off");
   }
+}
+
+/* Temperature */
+
+void temperature_change(float value) {
+  client.publish("/temperature.n", String(value));
 }
 
