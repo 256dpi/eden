@@ -41,6 +41,7 @@ void loop() {
     ring_loop();
     touch_loop();
     temperature_loop();
+    light_loop();
     
     if(!isAnimated && millis() > 5000) {
       ring_all(0, 0, 0, 500);
@@ -100,5 +101,11 @@ void touch_off(int pin) {
 
 void temperature_change(float value) {
   client.publish("/temperature.n", String(value));
+}
+
+/* Light */
+
+void light_change(int value) {
+  client.publish("/light.n", String(value));
 }
 

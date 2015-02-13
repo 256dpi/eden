@@ -11,17 +11,20 @@ MQTTClient client;
 String moisture;
 String temperature;
 String touch;
+String light;
 
 void setup() {
-  size(200, 200);
+  size(200, 230);
   client = new MQTTClient(this);
   client.connect("mqtt://5938e5400448b62b:e53d9b341079b265ec2ea7a3da6a6fe0@connect.shiftr.io", "controller");
   client.subscribe("/moisture.n");
   client.subscribe("/temperature.n");
+  client.subscribe("/light.n");
   client.subscribe("/touch/+");
   moisture = new String("..."); 
   temperature = new String("...");
   touch = new String("...");
+  light = new String("...");
   
   fill(0);
   textSize(40);
@@ -33,6 +36,7 @@ void draw() {
   text(moisture, width/2, 50);
   text(temperature, width/2, 100);
   text(touch, width/2, 150);
+  text(light, width/2, 200);
 }
 
 void keyPressed() {
@@ -54,6 +58,8 @@ void messageReceived(String topic, byte[] payload) {
     moisture = new String(payload);
   } else if(topic.equals("/temperature/n")) {
     temperature = new String(payload);
+  }  else if(topic.equals("/light/n")) {
+    light = new String(payload);
   } else if(topic.equals("/touch/on")) {
     touch = "on";
     client.publish("/ring/wake");
