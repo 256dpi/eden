@@ -2,7 +2,7 @@
  * Light API
  *
  * Callbacks:
- * - light_change(int value)
+ * - light_change(float percent)
  */
 
 #define T_PIN 4
@@ -22,7 +22,7 @@ void light_read() {
   int temp = analogRead(T_PIN);
   
   if(temp != light_history) {
-    light_change(temp);
+    light_change(temp / 1023.0 * 100.0);
     light_history = temp;
   }
 }

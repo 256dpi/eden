@@ -79,7 +79,7 @@ void messageReceived(String topic, char * payload, unsigned int len) {
 
 /* Moisture */
 
-void moisture_read(int value) {
+void moisture_read(float value) {
   client.publish("/moisture.n", String(value));
 }
 
@@ -105,7 +105,7 @@ void temperature_change(float value) {
 
 /* Light */
 
-void light_change(int value) {
+void light_change(float value) {
   client.publish("/light.n", String(value));
 }
 

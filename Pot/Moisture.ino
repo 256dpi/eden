@@ -2,7 +2,7 @@
  * Moisture Sensor API
  *
  * Callbacks:
- * - moisture_read(int value);
+ * - moisture_read(float percent);
  */
 
 #define M_R1 6 // Rod 1 Pin
@@ -31,7 +31,8 @@ void moisture_loop() {
       moisture_state++;
     } else {
       moisture_read_2 = 1023 - analogRead(M_IN);
-      moisture_read((moisture_read_1 + moisture_read_2) / 2);
+      int avg = (moisture_read_1 + moisture_read_2) / 2;
+      moisture_read(avg / 1023.0 * 100.0);
       moisture_state = 0;
     }
     

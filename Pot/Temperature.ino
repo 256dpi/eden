@@ -2,7 +2,7 @@
  * Temperature API
  *
  * Callbacks:
- * - temperature_change(float temp)
+ * - temperature_change(float celsius)
  */
 
 #define T_PIN 1 // Pin of LM35 reading
