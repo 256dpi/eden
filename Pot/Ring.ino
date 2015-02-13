@@ -65,13 +65,11 @@ void ring_step() {
         p->r = 0;
         p->g = 0;
         p->b = 0;
-        
         ring_pixels.setPixelColor(i, ring_pixels.Color(0, 0, 0));
       } else {
         p->r = p->r + p->cr;
         p->g = p->g + p->cg;
         p->b = p->b + p->cb;
-        
         ring_pixels.setPixelColor(i, ring_pixels.Color(p->r / R_PRE, p->g / R_PRE, p->b / R_PRE));
       }
       
