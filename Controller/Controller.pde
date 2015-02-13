@@ -8,10 +8,10 @@ import processing.mqtt.*;
 
 MQTTClient client;
 
-String moisture;
-String temperature;
-String touch;
-String light;
+float moisture = 0;
+float temperature = 0;
+boolean touch = false;
+float light = 0;
 
 void setup() {
   size(300, 230);
@@ -21,10 +21,6 @@ void setup() {
   client.subscribe("/temperature.n");
   client.subscribe("/light.n");
   client.subscribe("/touch/+");
-  moisture = new String("?"); 
-  temperature = new String("?");
-  touch = new String("off");
-  light = new String("?");
   
   fill(0);
   textSize(40);
@@ -55,16 +51,16 @@ void keyPressed() {
 
 void messageReceived(String topic, byte[] payload) {
   if(topic.equals("/moisture.n")) {
-    moisture = new String(payload);
+    moisture = Float.parseFloat(new String(payload));
   } else if(topic.equals("/temperature.n")) {
-    temperature = new String(payload);
+    temperature = Float.parseFloat(new String(payload));
   }  else if(topic.equals("/light.n")) {
-    light = new String(payload);
+    light = Float.parseFloat(new String(payload));
   } else if(topic.equals("/touch/on")) {
-    touch = "on";
+    touch = true;
     client.publish("/ring/wake");
   } else if(topic.equals("/touch/off")) {
-    touch = "off";
+    touch = false;
     client.publish("/ring/sleep");
   }
 }
