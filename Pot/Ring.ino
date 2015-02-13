@@ -19,6 +19,7 @@ typedef struct {
   int cg = 0;
   int cb = 0;
   int s = 0;
+  boolean zero = false;
 } ring_pixel;
 
 ring_pixel ring_state[16];
@@ -43,6 +44,7 @@ void ring_one(int i, int r, int g, int b, int d) {
   p->cr = (r * R_PRE - p->r) / p->s;
   p->cg = (g * R_PRE - p->g) / p->s;
   p->cb = (b * R_PRE - p->b) / p->s;
+  p->zero = (r == 0 && g == 0 && b == 0);
 }
 
 void ring_loop() {
@@ -59,11 +61,20 @@ void ring_step() {
     ring_pixel* p = &ring_state[i];
     
     if(p->s > 0) {
-      p->r = p->r + p->cr;
-      p->g = p->g + p->cg;
-      p->b = p->b + p->cb;
+      if(p->s == 1 && p->zero) {
+        p->r = 0;
+        p->g = 0;
+        p->b = 0;
+        
+        ring_pixels.setPixelColor(i, ring_pixels.Color(0, 0, 0));
+      } else {
+        p->r = p->r + p->cr;
+        p->g = p->g + p->cg;
+        p->b = p->b + p->cb;
+        
+        ring_pixels.setPixelColor(i, ring_pixels.Color(p->r / R_PRE, p->g / R_PRE, p->b / R_PRE));
+      }
       
-      ring_pixels.setPixelColor(i, ring_pixels.Color(p->r / R_PRE, p->g / R_PRE, p->b / R_PRE));
       dirty = true;
       p->s--;
     }
