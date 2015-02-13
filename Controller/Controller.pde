@@ -14,8 +14,12 @@ boolean touch = false;
 float light = 0;
 String lastColor = "r";
 
+int infoStep = 0;
+int infoSpeed = 4000;
+int infoTime = 0;
+
 void setup() {
-  size(300, 230);
+  size(300, 280);
   client = new MQTTClient(this);
   client.connect("mqtt://5938e5400448b62b:e53d9b341079b265ec2ea7a3da6a6fe0@connect.shiftr.io", "controller");
   client.subscribe("/moisture.n");
@@ -29,11 +33,25 @@ void setup() {
 }
 
 void draw() {
+  if(millis() - infoSpeed > infoTime) {
+    if(infoStep == 1) {
+      client.publish("/ring/display-b", Integer.toString(round(moisture / 100.0 * 16.0)));
+      info(2);
+    } else if(infoStep == 2) {
+      client.publish("/ring/display-g", Integer.toString(round(light / 100.0 * 16.0)));
+      info(3);
+    } else if(infoStep == 3) {
+      client.publish("/ring/sleep");
+      info(0);
+    }
+  }
+  
   background(255);
   text("M: " + moisture + "%", width/2, 50);
   text("C: " + temperature + "°", width/2, 100);
   text("T: " + touch, width/2, 150);
   text("L: " + light + "%", width/2, 200);
+  text("I: " + infoStep, width/2, 250);
 }
 
 void keyPressed() {
@@ -64,8 +82,15 @@ void messageReceived(String topic, byte[] payload) {
   } else if(topic.equals("/touch/on")) {
     touch = true;
     client.publish("/ring/wake");
+    info(1);
   } else if(topic.equals("/touch/off")) {
     touch = false;
-    client.publish("/ring/sleep");
+    /*client.publish("/ring/sleep");
+    info(0);*/
   }
+}
+
+void info(int step) {
+  infoStep = step;
+  infoTime = millis();
 }
