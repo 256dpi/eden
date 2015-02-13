@@ -25,23 +25,10 @@ void setup() {
   textAlign(CENTER);
 }
 
-boolean sendWake = false;
-boolean sendSleep = false;
-
 void draw() {
   background(255);
   text(value, width/2, height / 2 - 10);
   text(touch, width/2, height / 2 + 50);
-  
-  if(sendWake) {
-    client.publish("/ring/wake");
-    sendWake = false;
-  }
-  
-  if(sendSleep) {
-    client.publish("/ring/sleep");
-    sendSleep = false;
-  }
 }
 
 void keyPressed() {
@@ -63,10 +50,9 @@ void messageReceived(String topic, byte[] payload) {
     value = new String(payload);
   } else if(topic.equals("/touch/on")) {
     touch = "on";
-    sendWake = true;
+    client.publish("/ring/wake");
   } else if(topic.equals("/touch/off")) {
     touch = "off";
-    sendSleep = true;
+    client.publish("/ring/sleep");
   }
-  
 }
