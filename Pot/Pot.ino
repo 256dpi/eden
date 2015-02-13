@@ -52,24 +52,34 @@ void loop() {
 
 /* MQTTClient */
 
-void messageReceived(String topic, char * payload, unsigned int len) {
-  if(topic.equals("/ring/off")) {
-    ring_all(0, 0, 0, 100);
-  } else if(topic.equals("/ring/on")) {
-    ring_all(255, 255, 255, 100);
-  } else if(topic.equals("/ring/wake")) {
+void messageReceived(String topic, String payload, char * bytes, unsigned int len) {  
+  if(topic.equals("/ring/wake")) {
     ring_all(50, 50, 50, 500);
   } else if(topic.equals("/ring/sleep")) {
     ring_all(0, 0, 0, 500);
-  } else if(topic.equals("/ring/display")) {
-    char str[len+1];
-    memcpy(str, payload, len); 
-    str[len] = '\0';
-    int value = String(str).toInt();
-    
+  } else if(topic.equals("/ring/display-r")) {
+    int value = payload.toInt();
     for(int i=0; i<16; i++) {
       if(i < value) {
-        ring_one(i, 0, 0, 255, 500);
+        ring_one(i, 50, 0, 0, 500);
+      } else {
+        ring_one(i, 0, 0, 0, 500);
+      }
+    }
+  } else if(topic.equals("/ring/display-g")) {
+    int value = payload.toInt();
+    for(int i=0; i<16; i++) {
+      if(i < value) {
+        ring_one(i, 0, 50, 0, 500);
+      } else {
+        ring_one(i, 0, 0, 0, 500);
+      }
+    }
+  } else if(topic.equals("/ring/display-b")) {
+    int value = payload.toInt();
+    for(int i=0; i<16; i++) {
+      if(i < value) {
+        ring_one(i, 0, 0, 50, 500);
       } else {
         ring_one(i, 0, 0, 0, 500);
       }

@@ -12,6 +12,7 @@ float moisture = 0;
 float temperature = 0;
 boolean touch = false;
 float light = 0;
+String lastColor = "r";
 
 void setup() {
   size(300, 230);
@@ -36,16 +37,20 @@ void draw() {
 }
 
 void keyPressed() {
-  if(keyCode == 38) {
-    client.publish("/ring/on");
-  } else if(keyCode == 40) {
-    client.publish("/ring/off");
-  } else if(keyCode == 37) {
+  if(keyCode == 37) {
     client.publish("/ring/sleep");
   } else if(keyCode == 39) {
     client.publish("/ring/wake");
+  } else if(keyCode == 82) {
+    lastColor = "r";
+  } else if(keyCode == 71) {
+    lastColor = "g";
+  } else if(keyCode == 66) {
+    lastColor = "b";
   } else if(keyCode >= 48 && keyCode <= 57) {
-    client.publish("/ring/display", Integer.toString(keyCode - 48));
+    client.publish("/ring/display-" + lastColor, Integer.toString((keyCode - 48) * 2));
+  } else {
+    println(keyCode);
   }
 }
 
