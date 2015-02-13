@@ -34,7 +34,7 @@ void setup() {
 void draw() {
   background(255);
   text(moisture, width/2, 50);
-  text(temperature, width/2, 100);
+  text(temperature+"°", width/2, 100);
   text(touch, width/2, 150);
   text(light, width/2, 200);
 }
