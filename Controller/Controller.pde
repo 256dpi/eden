@@ -54,11 +54,11 @@ void keyPressed() {
 }
 
 void messageReceived(String topic, byte[] payload) {
-  if(topic.equals("/moisture/n")) {
+  if(topic.equals("/moisture.n")) {
     moisture = new String(payload);
-  } else if(topic.equals("/temperature/n")) {
+  } else if(topic.equals("/temperature.n")) {
     temperature = new String(payload);
-  }  else if(topic.equals("/light/n")) {
+  }  else if(topic.equals("/light.n")) {
     light = new String(payload);
   } else if(topic.equals("/touch/on")) {
     touch = "on";
