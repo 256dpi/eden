@@ -38,10 +38,10 @@ void draw() {
       client.publish("/ring/display-b", Integer.toString(round(moisture / 100.0 * 16.0)));
       info(2);
     } else if(infoStep == 2) {
-      client.publish("/ring/display-g", Integer.toString(round(light / 100.0 * 16.0)));
+      client.publish("/ring/display-y", Integer.toString(round(light / 100.0 * 16.0)));
       info(3);
     } else if(infoStep == 3) {
-      client.publish("/ring/sleep");
+      client.publish("/state/sleep");
       info(0);
     }
   }
@@ -56,9 +56,13 @@ void draw() {
 
 void keyPressed() {
   if(keyCode == 37) {
-    client.publish("/ring/sleep");
+    client.publish("/state/sleep");
   } else if(keyCode == 39) {
-    client.publish("/ring/wake");
+    client.publish("/state/wake");
+  } else if(keyCode == 33) {
+    client.publish("/alarm/on");
+  } else if(keyCode == 34) {
+    client.publish("/alarm/off");
   } else if(keyCode == 82) {
     lastColor = "r";
   } else if(keyCode == 71) {
@@ -81,12 +85,10 @@ void messageReceived(String topic, byte[] payload) {
     light = Float.parseFloat(new String(payload));
   } else if(topic.equals("/touch/on")) {
     touch = true;
-    client.publish("/ring/wake");
+    client.publish("/state/wake");
     info(1);
   } else if(topic.equals("/touch/off")) {
     touch = false;
-    /*client.publish("/ring/sleep");
-    info(0);*/
   }
 }
 

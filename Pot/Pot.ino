@@ -18,13 +18,13 @@ void setup() {
   Bridge.begin();
   Serial.begin(9600);
   
-  Serial.println("Hello Pot!");
-  
   moisture_setup();
   ring_setup();
   touch_setup();
 
   if(client.connect("pot1", "5938e5400448b62b", "e53d9b341079b265ec2ea7a3da6a6fe0")) {
+    client.subscribe("/state/+");
+    client.subscribe("/alarm/+");
     client.subscribe("/ring/+");
     
     isConnected = true;
@@ -42,6 +42,7 @@ void loop() {
     touch_loop();
     temperature_loop();
     light_loop();
+    alarm_loop();
     
     if(!isAnimated && millis() > 5000) {
       ring_all(0, 0, 0, 500);
@@ -53,36 +54,31 @@ void loop() {
 /* MQTTClient */
 
 void messageReceived(String topic, String payload, char * bytes, unsigned int len) {  
-  if(topic.equals("/ring/wake")) {
+  if(topic.equals("/state/wake")) {
     ring_all(50, 50, 50, 500);
-  } else if(topic.equals("/ring/sleep")) {
+  } else if(topic.equals("/state/sleep")) {
     ring_all(0, 0, 0, 500);
+  } else if(topic.equals("/alarm/on")) {
+    alarm_on();
+  } else if(topic.equals("/alarm/off")) {
+    alarm_off();
   } else if(topic.equals("/ring/display-r")) {
-    int value = payload.toInt();
-    for(int i=0; i<16; i++) {
-      if(i < value) {
-        ring_one(i, 50, 0, 0, 500);
-      } else {
-        ring_one(i, 0, 0, 0, 500);
-      }
-    }
+    setDisplay(payload.toInt(), 50, 0, 0, 500);
   } else if(topic.equals("/ring/display-g")) {
-    int value = payload.toInt();
-    for(int i=0; i<16; i++) {
-      if(i < value) {
-        ring_one(i, 0, 50, 0, 500);
-      } else {
-        ring_one(i, 0, 0, 0, 500);
-      }
-    }
+    setDisplay(payload.toInt(), 0, 50, 0, 500);
   } else if(topic.equals("/ring/display-b")) {
-    int value = payload.toInt();
-    for(int i=0; i<16; i++) {
-      if(i < value) {
-        ring_one(i, 0, 0, 50, 500);
-      } else {
-        ring_one(i, 0, 0, 0, 500);
-      }
+    setDisplay(payload.toInt(), 0, 0, 50, 500);
+  } else if(topic.equals("/ring/display-y")) {
+    setDisplay(payload.toInt(), 50, 50, 0, 500);
+  }
+}
+
+void setDisplay(int v, int r, int g, int b, int t) {
+  for(int i=0; i<16; i++) {
+    if(i < v) {
+      ring_one(i, r, g, b, t);
+    } else {
+      ring_one(i, 0, 0, 0, t);
     }
   }
 }

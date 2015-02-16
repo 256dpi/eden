@@ -15,9 +15,7 @@ uint16_t lasttouched = 0;
 uint16_t currtouched = 0;
 
 void touch_setup() {  
-  if (!touch_ic.begin(0x5A)) {
-    Serial.println("MPR121 not found!");
-  }
+  touch_ic.begin(0x5A);
 }
 
 void touch_loop() {
