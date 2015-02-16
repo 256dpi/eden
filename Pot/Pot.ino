@@ -8,8 +8,8 @@
 #include <YunClient.h>
 #include <MQTTClient.h>
 
-boolean isConnected = false;
-boolean isAnimated = false;
+boolean online = false;
+boolean booted = false;
 
 YunClient net;
 MQTTClient client("connect.shiftr.io", 1883, net);
@@ -27,7 +27,7 @@ void setup() {
     client.subscribe("/alarm/+");
     client.subscribe("/ring/+");
     
-    isConnected = true;
+    online = true;
     ring_all(255, 255, 255, 1000);
   } else {
     ring_all(255, 0, 0, 1000);
@@ -35,7 +35,7 @@ void setup() {
 }
 
 void loop() {
-  if(isConnected) {
+  if(online) {
     client.loop();
     moisture_loop();
     ring_loop();
@@ -44,9 +44,9 @@ void loop() {
     light_loop();
     alarm_loop();
     
-    if(!isAnimated && millis() > 5000) {
+    if(!booted && millis() > 5000) {
       ring_all(0, 0, 0, 500);
-      isAnimated = true;
+      booted = true;
     }
   } 
 }
@@ -55,9 +55,9 @@ void loop() {
 
 void messageReceived(String topic, String payload, char * bytes, unsigned int len) {  
   if(topic.equals("/state/wake")) {
-    ring_all(50, 50, 50, 500);
+    state_wake();
   } else if(topic.equals("/state/sleep")) {
-    ring_all(0, 0, 0, 500);
+    state_sleep();
   } else if(topic.equals("/alarm/on")) {
     alarm_on();
   } else if(topic.equals("/alarm/off")) {
@@ -92,7 +92,7 @@ void moisture_read(float value) {
 /* Touch */
 
 void touch_on(int pin) {
-  if(pin == 0) {  
+  if(pin == 0) {
     client.publish("/touch/on");
   }
 }
