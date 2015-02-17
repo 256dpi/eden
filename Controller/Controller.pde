@@ -40,7 +40,7 @@ void draw() {
   
   background(255);
   
-  int y = 0;
+  int y = 15;
   for(Pot pot: pots) {
     pot.draw(y);
     y += 300;
