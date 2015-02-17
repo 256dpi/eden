@@ -47,9 +47,13 @@ class Pot {
     info(1);
   }
   
-  void alarm(boolean on) {
+  void alarm(boolean on, boolean forward) {
     if(on) {
-      client.publish(id + "/alarm/on"); 
+      if(forward) {
+        client.publish(id + "/alarm/forward");
+      } else {
+        client.publish(id + "/alarm/on"); 
+      } 
     } else {
       client.publish(id + "/alarm/off");
     }

@@ -52,13 +52,17 @@ void keyPressed() {
     for(Pot pot: pots) {
       pot.wake();
     }
+  } else if(keyCode == 36) {
+    for(Pot pot: pots) {
+      pot.alarm(true, true);
+    }
   } else if(keyCode == 33) {
     for(Pot pot: pots) {
-      pot.alarm(true);
+      pot.alarm(true, false);
     }
   } else if(keyCode == 34) {
     for(Pot pot: pots) {
-      pot.alarm(false);
+      pot.alarm(false, false);
     }
   } else {
     println(keyCode);

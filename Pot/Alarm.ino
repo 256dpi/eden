@@ -8,12 +8,18 @@
 /* --------------------------------------------------- */
 
 int alarm = -1;
+boolean alarm_forward = false;
 long long alarm_last = 0;
 
 void alarm_loop() {
   if(alarm >= 0 && millis() - A_T > alarm_last) {
     if(alarm == 0) {
-      ring_all(255, 0, 0, A_TT);
+      if(alarm_forward) {
+        ring_all(50, 50, 0, A_TT);
+      } else {
+        ring_all(100, 0, 0, A_TT);
+      }
+      
       alarm = 1;
     } else {
       ring_all(0, 0, 0, A_TT);
@@ -24,8 +30,9 @@ void alarm_loop() {
   } 
 }
 
-void alarm_on() {
+void alarm_on(boolean fwd) {
   alarm = 0;
+  alarm_forward = fwd;
 }
 
 void alarm_off() {

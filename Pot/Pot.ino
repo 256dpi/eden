@@ -4,7 +4,7 @@
  * Eden Project: A networked pot.
  */
  
-#define ID "pot3"
+#define ID "pot1"
 #define KEY "5938e5400448b62b"
 #define SECRET "e53d9b341079b265ec2ea7a3da6a6fe0"
 
@@ -37,7 +37,6 @@ void setup() {
   if(client.connect(id, key, secret)) {
     client.subscribe(make_topic("state/+"));
     client.subscribe(make_topic("alarm/+"));
-    client.subscribe(make_topic("ring/+"));
     
     online = true;
     ring_all(255, 255, 255, 1000);
@@ -83,7 +82,9 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
   } else if(topic.equals(make_topic("state/sleep"))) {
     state_sleep();
   } else if(topic.equals(make_topic("alarm/on"))) {
-    alarm_on();
+    alarm_on(false);
+  } else if(topic.equals(make_topic("alarm/forward"))) {
+    alarm_on(true);
   } else if(topic.equals(make_topic("alarm/off"))) {
     alarm_off();
   }
