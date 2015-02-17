@@ -3,13 +3,25 @@
  *
  * Eden Project: A networked pot.
  */
+ 
+#define ID "pot3"
+#define KEY "5938e5400448b62b"
+#define SECRET "e53d9b341079b265ec2ea7a3da6a6fe0"
+
+/* --------------------------------------------------- */
 
 #include <Bridge.h>
 #include <YunClient.h>
 #include <MQTTClient.h>
 
+const char * id = ID;
+const char * key = KEY;
+const char * secret = SECRET;
+
 boolean online = false;
 boolean booted = false;
+
+char topic_buffer[32];
 
 YunClient net;
 MQTTClient client("connect.shiftr.io", 1883, net);
@@ -22,10 +34,10 @@ void setup() {
   ring_setup();
   touch_setup();
 
-  if(client.connect("pot1", "5938e5400448b62b", "e53d9b341079b265ec2ea7a3da6a6fe0")) {
-    client.subscribe("/state/+");
-    client.subscribe("/alarm/+");
-    client.subscribe("/ring/+");
+  if(client.connect(id, key, secret)) {
+    client.subscribe(make_topic("state/+"));
+    client.subscribe(make_topic("alarm/+"));
+    client.subscribe(make_topic("ring/+"));
     
     online = true;
     ring_all(255, 255, 255, 1000);
@@ -51,67 +63,61 @@ void loop() {
   } 
 }
 
+const char * make_topic(const char * string) {
+  int id_len = strlen(id);
+  strcpy(topic_buffer, id);
+  topic_buffer[id_len] = '/';
+  strcpy(topic_buffer + id_len + 1, string);
+  return topic_buffer;
+}
+
 /* MQTTClient */
 
 void messageReceived(String topic, String payload, char * bytes, unsigned int len) {  
-  if(topic.equals("/state/wake")) {
+  if(topic.equals(make_topic("state/wake"))) {
     state_wake();
-  } else if(topic.equals("/state/sleep")) {
+  } else if(topic.equals(make_topic("state/moisture"))) {
+    state_moisture(payload.toInt());
+  } else if(topic.equals(make_topic("state/light"))) {
+    state_light(payload.toInt());
+  } else if(topic.equals(make_topic("state/sleep"))) {
     state_sleep();
-  } else if(topic.equals("/alarm/on")) {
+  } else if(topic.equals(make_topic("alarm/on"))) {
     alarm_on();
-  } else if(topic.equals("/alarm/off")) {
+  } else if(topic.equals(make_topic("alarm/off"))) {
     alarm_off();
-  } else if(topic.equals("/ring/display-r")) {
-    setDisplay(payload.toInt(), 50, 0, 0, 500);
-  } else if(topic.equals("/ring/display-g")) {
-    setDisplay(payload.toInt(), 0, 50, 0, 500);
-  } else if(topic.equals("/ring/display-b")) {
-    setDisplay(payload.toInt(), 0, 0, 50, 500);
-  } else if(topic.equals("/ring/display-y")) {
-    setDisplay(payload.toInt(), 50, 50, 0, 500);
-  }
-}
-
-void setDisplay(int v, int r, int g, int b, int t) {
-  for(int i=0; i<16; i++) {
-    if(i < v) {
-      ring_one(i, r, g, b, t);
-    } else {
-      ring_one(i, 0, 0, 0, t);
-    }
   }
 }
 
 /* Moisture */
 
 void moisture_read(float value) {
-  client.publish("/moisture.n", String(value));
+  client.publish(make_topic("data/moisture.n"), String(value));
 }
 
 /* Touch */
 
 void touch_on(int pin) {
   if(pin == 0) {
-    client.publish("/touch/on");
+    client.publish(make_topic("touch/on"));
   }
 }
 
 void touch_off(int pin) {
   if(pin == 0) {
-    client.publish("/touch/off");
+    client.publish(make_topic("touch/off"));
   }
 }
 
 /* Temperature */
 
 void temperature_change(float value) {
-  client.publish("/temperature.n", String(value));
+  client.publish(make_topic("data/temperature.n"), String(value));
 }
 
 /* Light */
 
 void light_change(float value) {
-  client.publish("/light.n", String(value));
+  client.publish(make_topic("data/light.n"), String(value));
 }
 

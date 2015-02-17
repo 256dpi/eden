@@ -9,6 +9,8 @@
 #define T_R 10 // Number of readings
 #define T_T 2000 // Reading interval
 
+/* --------------------------------------------------- */
+
 int temperature_history[T_R];
 int temperature_step = 0;
 

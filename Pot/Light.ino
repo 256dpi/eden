@@ -8,6 +8,8 @@
 #define T_PIN 4 // Light Read Pin
 #define T_T 2000 // Read Interval
 
+/* --------------------------------------------------- */
+
 int light_history = 0;
 long long light_last_read = 0;
 

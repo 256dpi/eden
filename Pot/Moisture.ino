@@ -10,6 +10,8 @@
 #define M_IN 0 // Read Pin
 #define M_T 2000 // Read Interval (ms)
 
+/* --------------------------------------------------- */
+
 long long moisture_last_action = 0;
 int moisture_state = 0;
 int moisture_read_1 = 0;

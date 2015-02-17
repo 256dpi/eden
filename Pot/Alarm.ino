@@ -5,6 +5,8 @@
 #define A_T 400 // Interval
 #define A_TT 300 // Light Interval
 
+/* --------------------------------------------------- */
+
 int alarm = -1;
 long long alarm_last = 0;
 

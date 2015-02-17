@@ -2,11 +2,13 @@
  * Ring Animation API
  */
 
-#include <Adafruit_NeoPixel.h>
-
 #define R_CTL 4 // Control Ping
 #define R_PRE 100 // Precision
 #define R_INT 4 // Update Interval (ms)
+
+/* --------------------------------------------------- */
+
+#include <Adafruit_NeoPixel.h>
 
 Adafruit_NeoPixel ring_pixels = Adafruit_NeoPixel(16, R_CTL);
 unsigned long long ring_last_step = 0;
@@ -45,6 +47,16 @@ void ring_one(int i, int r, int g, int b, int d) {
   p->cg = (g * R_PRE - p->g) / p->s;
   p->cb = (b * R_PRE - p->b) / p->s;
   p->zero = (r == 0 && g == 0 && b == 0);
+}
+
+void ring_count(int v, int r, int g, int b, int t) {
+  for(int i=0; i<16; i++) {
+    if(i < v) {
+      ring_one(i, r, g, b, t);
+    } else {
+      ring_one(i, 0, 0, 0, t);
+    }
+  }
 }
 
 void ring_loop() {
