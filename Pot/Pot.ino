@@ -4,7 +4,7 @@
  * Eden Project: A networked pot.
  */
  
-#define ID "pot1"
+#define ID "pot3"
 #define KEY "5938e5400448b62b"
 #define SECRET "e53d9b341079b265ec2ea7a3da6a6fe0"
 
@@ -30,7 +30,6 @@ void setup() {
   Bridge.begin();
   Serial.begin(9600);
   
-  moisture_setup();
   ring_setup();
   touch_setup();
 
@@ -92,7 +91,7 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
 
 /* Moisture */
 
-void moisture_read(float value) {
+void moisture_change(float value) {
   client.publish(make_topic("data/moisture.n"), String(value));
 }
 

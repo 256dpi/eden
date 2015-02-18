@@ -1,5 +1,5 @@
 /**
- * Touch Sensing API
+ * Touch Sensor
  * 
  * Callbacks:
  * - touch_short()

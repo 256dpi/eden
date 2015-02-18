@@ -1,16 +1,16 @@
 /**
- * Ring Animation API
+ * Ring Animation
  */
 
-#define R_CTL 4 // Control Ping
-#define R_PRE 100 // Precision
-#define R_INT 4 // Update Interval (ms)
+#define RING_PIN 4
+#define RING_PRECISION 100
+#define RING_INTERVAL 4
 
 /* --------------------------------------------------- */
 
 #include <Adafruit_NeoPixel.h>
 
-Adafruit_NeoPixel ring_pixels = Adafruit_NeoPixel(16, R_CTL);
+Adafruit_NeoPixel ring_pixels = Adafruit_NeoPixel(16, RING_PIN);
 unsigned long long ring_last_step = 0;
 
 typedef struct {
@@ -37,15 +37,15 @@ void ring_all(int r, int g, int b, int d) {
 }
 
 void ring_one(int i, int r, int g, int b, int d) {
-  if(d < R_INT) {
-    d = R_INT;
+  if(d < RING_INTERVAL) {
+    d = RING_INTERVAL;
   }
   
   ring_pixel* p = &ring_state[i];
-  p->s = d / R_INT;
-  p->cr = (r * R_PRE - p->r) / p->s;
-  p->cg = (g * R_PRE - p->g) / p->s;
-  p->cb = (b * R_PRE - p->b) / p->s;
+  p->s = d / RING_INTERVAL;
+  p->cr = (r * RING_PRECISION - p->r) / p->s;
+  p->cg = (g * RING_PRECISION - p->g) / p->s;
+  p->cb = (b * RING_PRECISION - p->b) / p->s;
   p->zero = (r == 0 && g == 0 && b == 0);
 }
 
@@ -60,7 +60,7 @@ void ring_count(int v, int r, int g, int b, int t) {
 }
 
 void ring_loop() {
-  if(ring_last_step + R_INT < millis()) {
+  if(ring_last_step + RING_INTERVAL < millis()) {
     ring_step();
     ring_last_step = millis();
   }
@@ -82,7 +82,7 @@ void ring_step() {
         p->r = p->r + p->cr;
         p->g = p->g + p->cg;
         p->b = p->b + p->cb;
-        ring_pixels.setPixelColor(i, ring_pixels.Color(p->r / R_PRE, p->g / R_PRE, p->b / R_PRE));
+        ring_pixels.setPixelColor(i, ring_pixels.Color(p->r / RING_PRECISION, p->g / RING_PRECISION, p->b / RING_PRECISION));
       }
       
       dirty = true;

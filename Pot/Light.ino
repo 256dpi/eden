@@ -1,12 +1,12 @@
 /**
- * Light API
+ * Light Sensor
  *
  * Callbacks:
  * - light_change(float percent)
  */
 
-#define T_PIN 4 // Light Read Pin
-#define T_T 2000 // Read Interval
+#define LIGHT_PIN 4
+#define LIGHT_INTERVAL 2000
 
 /* --------------------------------------------------- */
 
@@ -14,18 +14,18 @@ int light_history = 0;
 long long light_last_read = 0;
 
 void light_loop() {
-  if(millis() - T_T > light_last_read) {
+  if(millis() - LIGHT_INTERVAL > light_last_read) {
     light_read();
     light_last_read = millis();
   }
 }
 
 void light_read() {
-  int temp = analogRead(T_PIN);
+  int v = analogRead(LIGHT_PIN);
   
-  if(temp != light_history) {
-    light_change(temp / 1023.0 * 100.0);
-    light_history = temp;
+  if(v != light_history) {
+    light_change(v / 1023.0 * 100.0);
+    light_history = v;
   }
 }
 

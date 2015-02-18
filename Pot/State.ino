@@ -1,5 +1,5 @@
 /**
- * State Subsystem
+ * State System
  */
 
 void state_wake() {
