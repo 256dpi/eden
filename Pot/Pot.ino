@@ -98,16 +98,12 @@ void moisture_read(float value) {
 
 /* Touch */
 
-void touch_on(int pin) {
-  if(pin == 0) {
-    client.publish(make_topic("touch/on"));
-  }
+void touch_on() {
+  client.publish(make_topic("touch/on"));
 }
 
-void touch_off(int pin) {
-  if(pin == 0) {
-    client.publish(make_topic("touch/off"));
-  }
+void touch_off() {
+  client.publish(make_topic("touch/off"));
 }
 
 /* Temperature */

@@ -2,8 +2,8 @@
  * Touch Sensing API
  * 
  * Callbacks:
- * - touch_on(int pin)
- * - touch_off(int pin)
+ * - touch_on()
+ * - touch_off()
  */
 
 #include <Wire.h>
@@ -21,13 +21,10 @@ void touch_setup() {
 void touch_loop() {
   currtouched = touch_ic.touched();
   
-  for (uint8_t i=0; i<12; i++) {
-    if ((currtouched & _BV(i)) && !(lasttouched & _BV(i)) ) {
-      touch_on(i);
-    }
-    if (!(currtouched & _BV(i)) && (lasttouched & _BV(i)) ) {
-      touch_off(i);
-    }
+  if ((currtouched & _BV(0)) && !(lasttouched & _BV(0)) ) {
+    touch_on();
+  } else if (!(currtouched & _BV(0)) && (lasttouched & _BV(0)) ) {
+    touch_off();
   }
   
   lasttouched = currtouched;
