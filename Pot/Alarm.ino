@@ -15,7 +15,7 @@ void alarm_loop() {
   if(alarm >= 0 && millis() - ALARM_SPEED > alarm_last) {
     if(alarm == 0) {
       if(alarm_forward) {
-        ring_all(50, 50, 0, ALARM_SPEED2);
+        ring_all(50, 0, 50, ALARM_SPEED2);
       } else {
         ring_all(100, 0, 0, ALARM_SPEED2);
       }
