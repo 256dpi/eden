@@ -66,9 +66,13 @@ class Pot {
         light = Float.parseFloat(new String(payload));
       }
     } else if(segments[1].equals("touch")) {
-      client.publish(id + "/state/wake");
-      info(1);
-      // if(segments[2].equals("short")) {}
+      if(segments[2].equals("short")) {
+        this.wake();
+      } else if(segments[2].equals("long")) {
+        for(Pot pot: pots) {
+          pot.wake();
+        }
+      }
     }
   }
 }
