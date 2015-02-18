@@ -29,14 +29,10 @@ void setup() {
   textAlign(CENTER);
 }
 
-void loop() {
+void draw() {
   for(Pot pot: pots) {
     pot.loop();
   }
-}
-
-void draw() {
-  loop();
   
   background(255);
   
