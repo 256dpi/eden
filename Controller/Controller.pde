@@ -47,28 +47,6 @@ void draw() {
   }
 }
 
-void keyPressed() {
-  if(keyCode == 10) {
-    for(Pot pot: pots) {
-      pot.wake();
-    }
-  } else if(keyCode == 36) {
-    for(Pot pot: pots) {
-      pot.alarm(true, true);
-    }
-  } else if(keyCode == 33) {
-    for(Pot pot: pots) {
-      pot.alarm(true, false);
-    }
-  } else if(keyCode == 34) {
-    for(Pot pot: pots) {
-      pot.alarm(false, false);
-    }
-  } else {
-    println(keyCode);
-  }
-}
-
 void messageReceived(String topic, byte[] payload) {
   String[] segments = topic.split("/");
   

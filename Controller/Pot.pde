@@ -9,6 +9,8 @@ class Pot {
   int infoSpeed = 4000;
   int infoTime = 0;
   
+  boolean alarming = false;
+  
   Pot(String _id) {
     this.id = _id;
   }
@@ -60,6 +62,20 @@ class Pot {
     if(segments[1].equals("data")) {
       if(segments[2].equals("moisture.n")) {
         moisture = Float.parseFloat(new String(payload));
+        
+        if(moisture < 25 && !alarming) {
+          for(Pot pot: pots) {
+            pot.alarm(true, pot != this);
+          }
+          
+          this.alarming = true;
+        } else if(moisture > 25 && alarming) {
+          for(Pot pot: pots) {
+            pot.alarm(false, false);
+          }
+          
+          this.alarming = false;
+        }
       } else if(segments[2].equals("temperature.n")) {
         temperature = Float.parseFloat(new String(payload));
       } else if(segments[2].equals("light.n")) {
