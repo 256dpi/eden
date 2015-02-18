@@ -3,7 +3,6 @@ class Pot {
   
   float moisture = 0;
   float temperature = 0;
-  boolean touch = false;
   float light = 0;
 
   int infoStep = 0;
@@ -37,9 +36,7 @@ class Pot {
   void draw(int y) {  
     text("M: " + moisture + "%", width/2, y + 50);
     text("C: " + temperature + "°", width/2, y + 100);
-    text("T: " + touch, width/2, y + 150);
-    text("L: " + light + "%", width/2, y + 200);
-    text("I: " + infoStep, width/2, y + 250);
+    text("L: " + light + "%", width/2, y + 150);
   }
   
   void wake() {
@@ -69,13 +66,9 @@ class Pot {
         light = Float.parseFloat(new String(payload));
       }
     } else if(segments[1].equals("touch")) {
-      if(segments[2].equals("on")) {
-        touch = true;
-        client.publish(id + "/state/wake");
-        info(1);
-      } else if(segments[2].equals("off")) {
-        touch = false;
-      }
+      client.publish(id + "/state/wake");
+      info(1);
+      // if(segments[2].equals("short")) {}
     }
   }
 }

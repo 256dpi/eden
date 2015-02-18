@@ -98,12 +98,12 @@ void moisture_read(float value) {
 
 /* Touch */
 
-void touch_on() {
-  client.publish(make_topic("touch/on"));
+void touch_short() {
+  client.publish(make_topic("touch/short"));
 }
 
-void touch_off() {
-  client.publish(make_topic("touch/off"));
+void touch_long() {
+  client.publish(make_topic("touch/long"));
 }
 
 /* Temperature */
