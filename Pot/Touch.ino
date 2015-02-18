@@ -11,21 +11,20 @@
 
 Adafruit_MPR121 touch_ic = Adafruit_MPR121();
 
-uint16_t lasttouched = 0;
-uint16_t currtouched = 0;
+uint16_t touch_last = 0;
 
 void touch_setup() {  
   touch_ic.begin(0x5A);
 }
 
 void touch_loop() {
-  currtouched = touch_ic.touched();
+  uint16_t touch_current = touch_ic.touched();
   
-  if ((currtouched & _BV(0)) && !(lasttouched & _BV(0)) ) {
+  if ((touch_current & _BV(0)) && !(touch_last & _BV(0)) ) {
     touch_on();
-  } else if (!(currtouched & _BV(0)) && (lasttouched & _BV(0)) ) {
+  } else if (!(touch_current & _BV(0)) && (touch_last & _BV(0)) ) {
     touch_off();
   }
   
-  lasttouched = currtouched;
+  touch_last = touch_current;
 }
