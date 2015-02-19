@@ -5,7 +5,7 @@
  * - light_change(float percent)
  */
 
-#define LIGHT_PIN 4
+#define LIGHT_PIN 2
 #define LIGHT_INTERVAL 2000
 
 /* --------------------------------------------------- */
