@@ -6,36 +6,34 @@
  * - touch_long()
  */
 
-#define TOUCH_TIME 1000
+#define TOUCH_PIN_SEND 6
+#define TOUCH_PIN_RECEIVE 7
+#define TOUCH_LONG 1000
+#define TOUCH_THRESHOLD 200
  
 /* --------------------------------------------------- */ 
 
-#include <Wire.h>
-#include <Adafruit_MPR121.h>
+#include <CapTouch.h>
 
-Adafruit_MPR121 touch_ic = Adafruit_MPR121();
+CapTouch touch = CapTouch(TOUCH_PIN_SEND, TOUCH_PIN_RECEIVE); 
 
-uint16_t touch_last = 0;
 long long touch_start = 0;
 
-void touch_setup() {  
-  touch_ic.begin(0x5A);
-}
-
 void touch_loop() {
-  uint16_t touch_current = touch_ic.touched();
+  int value = touch.readTouch(15);
   
-  if ((touch_current & _BV(0)) && !(touch_last & _BV(0)) ) {
+  if(value > TOUCH_THRESHOLD && touch_start == 0) {
     touch_start = millis();
-  } else if (!(touch_current & _BV(0)) && (touch_last & _BV(0)) ) {
+  } else if(value < TOUCH_THRESHOLD && touch_start > 0) {
     int diff = millis() - touch_start;
     
-    if(diff < TOUCH_TIME) {
+    if(diff < TOUCH_LONG) {
       touch_short();
     } else {
       touch_long();
     }
+    
+    touch_start = 0;
   }
-  
-  touch_last = touch_current;
 }
+

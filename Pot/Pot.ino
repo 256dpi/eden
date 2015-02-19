@@ -31,7 +31,6 @@ void setup() {
   Serial.begin(9600);
   
   ring_setup();
-  touch_setup();
 
   if(client.connect(id, key, secret)) {
     client.subscribe(make_topic("state/+"));
