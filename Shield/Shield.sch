@@ -2371,13 +2371,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <busses>
 </busses>
 <nets>
-<net name="D2" class="0">
-<segment>
-<pinref part="JP4" gate="G$1" pin="1"/>
-<wire x1="-33.02" y1="15.24" x2="-45.72" y2="15.24" width="0.1524" layer="91"/>
-<label x="-45.72" y="15.24" size="1.778" layer="95"/>
-</segment>
-</net>
 <net name="MST" class="0">
 <segment>
 <pinref part="YUN1" gate="G$1" pin="A0"/>
@@ -2539,6 +2532,11 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="YUN1" gate="G$1" pin="D2"/>
 <wire x1="-17.78" y1="104.14" x2="-5.08" y2="104.14" width="0.1524" layer="91"/>
 <label x="-10.16" y="104.14" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="JP4" gate="G$1" pin="1"/>
+<wire x1="-33.02" y1="15.24" x2="-45.72" y2="15.24" width="0.1524" layer="91"/>
+<label x="-45.72" y="15.24" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
