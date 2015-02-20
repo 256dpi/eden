@@ -1,42 +1,25 @@
 /**
  * Alarm System
+ *
+ * Callbacks
+ * - alarm_trigger()
  */
  
-#define ALARM_SPEED 400
-#define ALARM_SPEED2 300
+#define ALARM_MOISTURE_MIN 25
+#define ALARM_INTERVAL 3000
 
 /* --------------------------------------------------- */
 
-int alarm = -1;
-boolean alarm_forward = false;
-long long alarm_last = 0;
+long long alarm_last_trigger = 0;
 
-void alarm_loop() {
-  if(alarm >= 0 && millis() - ALARM_SPEED > alarm_last) {
-    if(alarm == 0) {
-      if(alarm_forward) {
-        ring_all(50, 0, 50, ALARM_SPEED2);
-      } else {
-        ring_all(100, 0, 0, ALARM_SPEED2);
-      }
-      
-      alarm = 1;
-    } else {
-      ring_all(0, 0, 0, ALARM_SPEED2);
-      alarm = 0;
-    }
-      
-    alarm_last = millis();
-  } 
-}
-
-void alarm_on(boolean fwd) {
-  alarm = 0;
-  alarm_forward = fwd;
-}
-
-void alarm_off() {
-  alarm = -1;
-  ring_all(0, 0, 0, ALARM_SPEED2);
+void alarm_loop(float moisture) {
+  if(millis() - ALARM_INTERVAL > alarm_last_trigger) {
+    alarm_last_trigger = 0;
+  }
+  
+  if(moisture < ALARM_MOISTURE_MIN && alarm_last_trigger == 0) {
+    alarm_trigger();
+    alarm_last_trigger = millis();
+  }
 }
 

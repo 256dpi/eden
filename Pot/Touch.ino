@@ -34,6 +34,9 @@ void touch_loop() {
     }
     
     touch_start = 0;
+  } else if(millis() - TOUCH_LONG > touch_start && touch_start > 0) {
+    touch_long();
+    touch_start = 0;
   }
 }
 
