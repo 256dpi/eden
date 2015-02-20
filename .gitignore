@@ -1,1 +1,4 @@
 .DS_Store
+Shield/*.b#*
+Shield/*.s#*
+Shield/*.pro
