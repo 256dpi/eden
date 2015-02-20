@@ -130,14 +130,14 @@
 <wire x1="76.785509375" y1="17.658065625" x2="76.7996" y2="61.9358875" width="0" layer="20"/>
 <wire x1="76.7996" y1="61.9358875" x2="23.734728125" y2="61.9828625" width="0" layer="20"/>
 <wire x1="23.734728125" y1="61.9828625" x2="23.719084375" y2="17.6198125" width="0" layer="20"/>
-<text x="38.168671875" y="23.54083125" size="1.016" layer="22" rot="R270">LGH1</text>
-<text x="41.745771875" y="23.454128125" size="1.016" layer="21" rot="R270">LGH2</text>
-<text x="45.361090625" y="23.417196875" size="1.016" layer="21" rot="R270">LED-</text>
-<text x="48.8889" y="23.3735875" size="1.016" layer="21" rot="R270">LED+</text>
-<text x="52.6859875" y="23.31435" size="1.016" layer="21" rot="R270">LED</text>
-<text x="56.158621875" y="23.3189625" size="1.016" layer="21" rot="R270">MST1</text>
-<text x="60.009621875" y="23.3139" size="1.016" layer="21" rot="R270">MST2</text>
-<text x="63.493696875" y="23.277021875" size="1.016" layer="21" rot="R270">CPC</text>
+<text x="38.168671875" y="23.54083125" size="1.016" layer="1" rot="R270">LGH1</text>
+<text x="41.745771875" y="23.454128125" size="1.016" layer="1" rot="R270">LGH2</text>
+<text x="45.361090625" y="23.417196875" size="1.016" layer="1" rot="R270">LED-</text>
+<text x="48.8889" y="23.3735875" size="1.016" layer="1" rot="R270">LED+</text>
+<text x="52.6859875" y="23.31435" size="1.016" layer="1" rot="R270">LED</text>
+<text x="56.158621875" y="23.3189625" size="1.016" layer="1" rot="R270">MST1</text>
+<text x="60.009621875" y="23.3139" size="1.016" layer="1" rot="R270">MST2</text>
+<text x="63.493696875" y="23.277021875" size="1.016" layer="1" rot="R270">CPC</text>
 <text x="36.72980625" y="56.95510625" size="1.778" layer="1">EDEN 1.0</text>
 <text x="52.32373125" y="57.03160625" size="1.016" layer="1">© Joël Gähwiler</text>
 </plain>
