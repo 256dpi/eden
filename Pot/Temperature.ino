@@ -6,38 +6,27 @@
  */
 
 #define TEMPERATURE_PIN 1
-#define TEMPERATURE_READINGS 10
 #define TEMPERATURE_INTERVAL 2000
 
 /* --------------------------------------------------- */
 
-int temperature_history[TEMPERATURE_READINGS];
-int temperature_step = 0;
-
-long long temperature_last_step = 0;
+int temperature_history = 0;
+long long temperature_last_read = 0;
 
 void temperature_loop() {
-  if(millis() - TEMPERATURE_INTERVAL / TEMPERATURE_READINGS > temperature_last_step) {
-    if(temperature_step < TEMPERATURE_READINGS) {
-      temperature_history[temperature_step] = analogRead(TEMPERATURE_PIN);
-      temperature_step++; 
-    } else {
-      temperature_calculate();
-      temperature_step = 0;
-    }
-    
-    temperature_last_step = millis();
+  if(millis() - TEMPERATURE_INTERVAL > temperature_last_read) {
+    temperature_read();
+    temperature_last_read = millis();
   }
 }
 
-void temperature_calculate() {
-  int total = 0;
+void temperature_read() {
+  int v = analogRead(TEMPERATURE_PIN);
   
-  for(int i=0; i < TEMPERATURE_READINGS; i++) { 
-    total += temperature_history[i];
+  if(v != temperature_history) {
+    temperature_change(temperature_convert(v));
+    temperature_history = v;
   }
-  
-  temperature_change(temperature_convert(total / TEMPERATURE_READINGS));
 }
 
 float temperature_convert(int value) {
