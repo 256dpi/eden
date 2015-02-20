@@ -1,5 +1,5 @@
 /**
- * Controller - System Controller
+ * Monitor
  *
  * Eden Project: A networked pot.
  */
@@ -18,8 +18,7 @@ void setup() {
   pots.add(new Pot("pot2"));
   pots.add(new Pot("pot3"));
   
-  size(300, pots.size() * 200);
-  
+  size(300, pots.size() * 250);
   
   client = new MQTTClient(this);
   client.connect("mqtt://5938e5400448b62b:e53d9b341079b265ec2ea7a3da6a6fe0@connect.shiftr.io", "controller");
@@ -46,7 +45,7 @@ void draw() {
   int y = 15;
   for(Pot pot: pots) {
     pot.draw(y);
-    y += 200;
+    y += 250;
   }
 }
 
