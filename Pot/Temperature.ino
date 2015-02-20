@@ -6,12 +6,12 @@
  */
 
 #define TEMPERATURE_PIN 1
-#define TEMPERATURE_INTERVAL 2000
+#define TEMPERATURE_INTERVAL 3000
 
 /* --------------------------------------------------- */
 
 int temperature_history = 0;
-long long temperature_last_read = 0;
+long long temperature_last_read = 2000;
 
 void temperature_loop() {
   if(millis() - TEMPERATURE_INTERVAL > temperature_last_read) {

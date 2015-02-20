@@ -6,12 +6,12 @@
  */
 
 #define MOISTURE_PIN 0
-#define MOISTURE_INTERVAL 2000
+#define MOISTURE_INTERVAL 3000
 
 /* --------------------------------------------------- */
 
 int moisture_history = 0;
-long long moisture_last_read = 0;
+long long moisture_last_read = 1000;
 
 void moisture_loop() {
   if(millis() - MOISTURE_INTERVAL > moisture_last_read) {

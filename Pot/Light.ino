@@ -6,7 +6,7 @@
  */
 
 #define LIGHT_PIN 2
-#define LIGHT_INTERVAL 2000
+#define LIGHT_INTERVAL 3000
 
 /* --------------------------------------------------- */
 
