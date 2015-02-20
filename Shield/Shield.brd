@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.000000123031" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="0.000000123031" unitdist="inch" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="mm"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -130,16 +130,16 @@
 <wire x1="76.785509375" y1="17.658065625" x2="76.7996" y2="61.9358875" width="0" layer="20"/>
 <wire x1="76.7996" y1="61.9358875" x2="23.734728125" y2="61.9828625" width="0" layer="20"/>
 <wire x1="23.734728125" y1="61.9828625" x2="23.719084375" y2="17.6198125" width="0" layer="20"/>
-<text x="38.168671875" y="23.54083125" size="1.016" layer="1" rot="R270">LGH1</text>
-<text x="41.745771875" y="23.454128125" size="1.016" layer="1" rot="R270">LGH2</text>
-<text x="45.361090625" y="23.417196875" size="1.016" layer="1" rot="R270">LED-</text>
-<text x="48.8889" y="23.3735875" size="1.016" layer="1" rot="R270">LED+</text>
-<text x="52.6859875" y="23.31435" size="1.016" layer="1" rot="R270">LED</text>
-<text x="56.158621875" y="23.3189625" size="1.016" layer="1" rot="R270">MST1</text>
-<text x="60.009621875" y="23.3139" size="1.016" layer="1" rot="R270">MST2</text>
-<text x="63.493696875" y="23.277021875" size="1.016" layer="1" rot="R270">CPC</text>
-<text x="36.72980625" y="56.95510625" size="1.778" layer="1">EDEN 1.0</text>
-<text x="52.32373125" y="57.03160625" size="1.016" layer="1">© Joël Gähwiler</text>
+<text x="38.168671875" y="23.54083125" size="1.016" layer="1" font="vector" ratio="15" rot="R270">LGH1</text>
+<text x="41.745771875" y="23.454128125" size="1.016" layer="1" font="vector" ratio="15" rot="R270">LGH2</text>
+<text x="45.361090625" y="23.417196875" size="1.016" layer="1" font="vector" ratio="15" rot="R270">LED-</text>
+<text x="48.8889" y="23.3735875" size="1.016" layer="1" font="vector" ratio="15" rot="R270">LED+</text>
+<text x="52.6859875" y="23.31435" size="1.016" layer="1" font="vector" ratio="15" rot="R270">LED</text>
+<text x="56.158621875" y="23.3189625" size="1.016" layer="1" font="vector" ratio="15" rot="R270">MST1</text>
+<text x="60.009621875" y="23.3139" size="1.016" layer="1" font="vector" ratio="15" rot="R270">MST2</text>
+<text x="63.493696875" y="23.277021875" size="1.016" layer="1" font="vector" ratio="15" rot="R270">CPC</text>
+<text x="35.641621875" y="56.95510625" size="1.778" layer="1" font="vector" ratio="15">EDEN 1.0</text>
+<text x="50.8227875" y="56.9565" size="1.016" layer="1" font="vector" ratio="15">by Joël Gähwiler</text>
 </plain>
 <libraries>
 <library name="SparkFun-Boards">
@@ -741,6 +741,35 @@ design rules under a new name.</description>
 <wire x1="41.6052" y1="52.8066" x2="41.663375" y2="52.97575625" width="0.254" layer="1"/>
 </signal>
 </signals>
+<errors>
+<approved hash="3,1,dfa39dda109252eb"/>
+<approved hash="3,1,e104a71c2bfc6de4"/>
+<approved hash="3,1,342d7612a252e06d"/>
+<approved hash="3,1,72ee2cf6675e3946"/>
+<approved hash="3,1,80a6ad5ed587f87f"/>
+<approved hash="3,1,3a66f46ebc317239"/>
+<approved hash="3,1,5cec9ae45e44984c"/>
+<approved hash="3,1,edb1b1b946ee1ae6"/>
+<approved hash="3,1,df3be585c83cf282"/>
+<approved hash="18,29,55592d6e2ca8395d"/>
+<approved hash="18,29,3a4b3aaa3a98ee8b"/>
+<approved hash="18,29,9a29e718e75f766c"/>
+<approved hash="18,29,3edcefadefa9531a"/>
+<approved hash="18,29,61432f1bef9b0f2e"/>
+<approved hash="18,29,dff21b66db77f0cf"/>
+<approved hash="18,29,c00e4ba10a25a947"/>
+<approved hash="18,29,2fc91ca61c7efbe3"/>
+<approved hash="18,29,6788bd0ca00efc32"/>
+<approved hash="18,29,a5f20f674f76c4ce"/>
+<approved hash="18,29,ec0fc7a10424c746"/>
+<approved hash="18,29,96ab675c67197aec"/>
+<approved hash="18,29,a03ab94714d90397"/>
+<approved hash="18,29,8c2c9382b81ba986"/>
+<approved hash="18,29,ab940c048e23d79c"/>
+<approved hash="18,29,d6d898e562095b16"/>
+<approved hash="18,29,437bd3049aea98c1"/>
+<approved hash="18,29,a624a3c1542fc39e"/>
+</errors>
 </board>
 </drawing>
 </eagle>
