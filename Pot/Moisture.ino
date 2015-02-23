@@ -7,6 +7,8 @@
 
 #define MOISTURE_PIN 0
 #define MOISTURE_INTERVAL 3000
+#define MOISTURE_MIN 550
+#define MOISTURE_MAX 750
 
 /* --------------------------------------------------- */
 
@@ -24,7 +26,10 @@ void moisture_read() {
   int v = analogRead(MOISTURE_PIN);
   
   if(v != moisture_history) {
-    moisture_change(v / 1023.0 * 100.0);
+    int vv = map(v, MOISTURE_MIN, MOISTURE_MAX, 0, 100);
+    vv = constrain(vv, 0, 100);
+    
+    moisture_change(vv);
     moisture_history = v;
   }
 }

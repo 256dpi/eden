@@ -5,7 +5,7 @@
  * - alarm_trigger()
  */
  
-#define ALARM_MOISTURE_MIN 25
+#define ALARM_MOISTURE_MIN 20
 #define ALARM_INTERVAL 3000
 
 /* --------------------------------------------------- */
