@@ -56,7 +56,7 @@ void loop() {
     temperature_loop();
     light_loop();
     alarm_loop(pot_moisture);
-    state_loop(pot_moisture, pot_light);
+    state_loop(pot_moisture, pot_light, pot_temperature);
 
     if (!pot_booted && millis() > 5000) {
       ring_all(0, 0, 0, 500);
