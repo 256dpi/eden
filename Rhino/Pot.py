@@ -1,20 +1,19 @@
-import math
-import rhinoscriptsyntax as rs
+import rhinoscript as rs
 
-diameterTop = rs.GetInteger("Diameter Top", 12)
-diameterBottom = rs.GetInteger("Diameter Bottom", 8)
+diameterTop = rs.userinterface.GetInteger("Diameter Top", 12)
+diameterBottom = rs.userinterface.GetInteger("Diameter Bottom", 8)
 diameterMiddle = ((diameterTop - diameterBottom) * 0.7) + diameterBottom
 
-totalHeight = rs.GetInteger("Height", 20)
+totalHeight = rs.userinterface.GetInteger("Height", 20)
 middleHeight = totalHeight * 0.4
 
-plane = rs.WorldXYPlane()
+plane = rs.plane.WorldXYPlane()
 
-bottom = rs.AddCircle(plane, diameterBottom)
-middle = rs.AddCircle(plane, diameterMiddle)
-top = rs.AddCircle(plane, diameterTop)
+bottom = rs.curve.AddCircle(plane, diameterBottom)
+middle = rs.curve.AddCircle(plane, diameterMiddle)
+top = rs.curve.AddCircle(plane, diameterTop)
 
-rs.MoveObject(middle, [0, 0, middleHeight])
-rs.MoveObject(top, [0, 0, totalHeight])
+rs.object.MoveObject(middle, [0, 0, middleHeight])
+rs.object.MoveObject(top, [0, 0, totalHeight])
 
-rs.AddLoftSrf([bottom, middle, top])
+rs.surface.AddLoftSrf([bottom, middle, top])
