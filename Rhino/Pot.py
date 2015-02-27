@@ -5,14 +5,23 @@ innerTopDiameter = rs.userinterface.GetInteger("Inner Top Diameter", 180)
 innerBottomDiameter = rs.userinterface.GetInteger("Inner Bottom Diameter", 120)
 innerHeight = rs.userinterface.GetInteger("Inner Height", 170)
 
-# config data
+# pot values
 thickness = 5
+bellyRatio = 0.8
+bellyPosition = 0.4
+
+# ring values
+ringOuterDiameter = 46
+ringInnerDiameter = 30
+ringAngle = 4
+ringInset = thickness * 0.7
+ringPosition = 0.7
 
 # GENERATE POT
 
 # calculate stuff from user data
-innerMiddleDiameter = ((innerTopDiameter - innerBottomDiameter) * 0.8) + innerBottomDiameter
-innerMiddleHeight = innerHeight * 0.4
+innerMiddleDiameter = ((innerTopDiameter - innerBottomDiameter) * bellyRatio) + innerBottomDiameter
+innerMiddleHeight = innerHeight * bellyPosition
 totalHeight = innerHeight + thickness
 middleHeight = innerMiddleHeight + thickness
 
@@ -45,13 +54,13 @@ rs.object.DeleteObjects([hullLine, railLine])
 # GENERATE RING EMBOSS
 
 # create ring
-outerRing = rs.surface.AddCylinder([0, 0, 0], 5, 23)
-innerRing = rs.surface.AddCylinder([0, 0, 0], 5, 15)
+outerRing = rs.surface.AddCylinder([0, 0, 0], thickness, ringOuterDiameter / 2)
+innerRing = rs.surface.AddCylinder([0, 0, 0], thickness, ringInnerDiameter / 2)
 ring = rs.surface.BooleanDifference(outerRing, innerRing)
 
 # position ring
-rs.object.RotateObject(ring, [0, 0, 0], 86, [1, 0, 0])
-rs.object.MoveObject(ring, [0, radiusMiddle + thickness * 0.7, totalHeight * 0.7])
+rs.object.RotateObject(ring, [0, 0, 0], 90 - ringAngle, [1, 0, 0])
+rs.object.MoveObject(ring, [0, radiusMiddle + ringInset, totalHeight * ringPosition])
 
 # cut out ring
 pot = rs.surface.BooleanDifference(hullSurface, ring)
