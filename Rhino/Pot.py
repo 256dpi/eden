@@ -21,7 +21,9 @@ bottomInnerLine = rs.curve.AddLine([0, 0, thickness], [radiusBottom - thickness,
 outerHullLine = rs.curve.AddArc3Pt([radiusBottom, 0, 0], [radiusTop, 0, totalHeight], [radiusMiddle, 0, middleHeight])
 innerHullLine = rs.curve.AddArc3Pt([radiusBottom - thickness, 0, thickness], [radiusTop - thickness, 0, totalHeight],
                                    [radiusMiddle - thickness, 0, middleHeight])
-topEdgeLine = rs.curve.AddLine([radiusTop, 0, totalHeight], [radiusTop - thickness, 0, totalHeight])
+
+topEdgeLine = rs.curve.AddArc3Pt([radiusTop, 0, totalHeight], [radiusTop - thickness, 0, totalHeight],
+                                 [radiusTop - thickness / 2, 0, totalHeight + thickness / 2])
 hullLine = rs.curve.JoinCurves([bottomOuterLine, outerHullLine, topEdgeLine, innerHullLine, bottomInnerLine], True)
 
 # create rail
