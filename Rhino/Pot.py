@@ -14,7 +14,7 @@ bellyPosition = 0.4
 ringOuterDiameter = 46
 ringInnerDiameter = 30
 ringAngle = 4
-ringInset = thickness * 0.7
+ringInset = thickness * 0.5
 ringPosition = 0.7
 
 
