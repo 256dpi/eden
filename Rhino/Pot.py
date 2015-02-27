@@ -17,6 +17,7 @@ ringAngle = 4
 ringInset = thickness * 0.7
 ringPosition = 0.7
 
+
 # GENERATE POT
 
 # calculate stuff from user data
@@ -24,7 +25,6 @@ innerMiddleDiameter = ((innerTopDiameter - innerBottomDiameter) * bellyRatio) + 
 innerMiddleHeight = innerHeight * bellyPosition
 totalHeight = innerHeight + thickness
 middleHeight = innerMiddleHeight + thickness
-
 
 # radiuses
 radiusTop = innerTopDiameter / 2
@@ -50,6 +50,7 @@ hullSurface = rs.surface.AddRevSrf(hullLine, [[0, 0, 0], [0, 0, thickness]])
 
 # remove remaining curves
 rs.object.DeleteObjects([hullLine, railLine])
+
 
 # GENERATE RING EMBOSS
 
