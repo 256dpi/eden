@@ -1,21 +1,26 @@
 import rhinoscript as rs
 
 # get all user data
-diameterTop = rs.userinterface.GetInteger("Diameter Top", 180)
-diameterBottom = rs.userinterface.GetInteger("Diameter Bottom", 120)
-totalHeight = rs.userinterface.GetInteger("Height", 170)
-thickness = rs.userinterface.GetInteger("Thickness", 5)
+innerTopDiameter = rs.userinterface.GetInteger("Inner Top Diameter", 180)
+innerBottomDiameter = rs.userinterface.GetInteger("Inner Bottom Diameter", 120)
+innerHeight = rs.userinterface.GetInteger("Inner Height", 170)
+
+# config data
+thickness = 5
 
 # GENERATE POT
 
 # calculate stuff from user data
-diameterMiddle = ((diameterTop - diameterBottom) * 0.8) + diameterBottom
-middleHeight = totalHeight * 0.4
+innerMiddleDiameter = ((innerTopDiameter - innerBottomDiameter) * 0.8) + innerBottomDiameter
+innerMiddleHeight = innerHeight * 0.4
+totalHeight = innerHeight + thickness
+middleHeight = innerMiddleHeight + thickness
+
 
 # radiuses
-radiusTop = diameterTop / 2
-radiusMiddle = diameterMiddle / 2
-radiusBottom = diameterBottom / 2
+radiusTop = innerTopDiameter / 2
+radiusMiddle = innerMiddleDiameter / 2
+radiusBottom = innerBottomDiameter / 2
 
 # draw hull outline
 bottomOuterLine = rs.curve.AddLine([0, 0, 0], [radiusBottom, 0, 0])
