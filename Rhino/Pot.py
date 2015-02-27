@@ -6,6 +6,8 @@ diameterBottom = rs.userinterface.GetInteger("Diameter Bottom", 120)
 totalHeight = rs.userinterface.GetInteger("Height", 170)
 thickness = rs.userinterface.GetInteger("Thickness", 5)
 
+# GENERATE POT
+
 # calculate stuff from user data
 diameterMiddle = ((diameterTop - diameterBottom) * 0.8) + diameterBottom
 middleHeight = totalHeight * 0.4
@@ -34,3 +36,17 @@ hullSurface = rs.surface.AddRevSrf(hullLine, [[0, 0, 0], [0, 0, thickness]])
 
 # remove remaining curves
 rs.object.DeleteObjects([hullLine, railLine])
+
+# GENERATE RING EMBOSS
+
+# create ring
+outerRing = rs.surface.AddCylinder([0, 0, 0], 5, 23)
+innerRing = rs.surface.AddCylinder([0, 0, 0], 5, 15)
+ring = rs.surface.BooleanDifference(outerRing, innerRing)
+
+# position ring
+rs.object.RotateObject(ring, [0, 0, 0], 86, [1, 0, 0])
+rs.object.MoveObject(ring, [0, radiusMiddle + thickness * 0.7, totalHeight * 0.7])
+
+# cut out ring
+pot = rs.surface.BooleanDifference(hullSurface, ring)
