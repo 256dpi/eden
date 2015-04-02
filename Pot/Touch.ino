@@ -6,8 +6,8 @@
  * - touch_long()
  */
 
-#define TOUCH_PIN_SEND 6
-#define TOUCH_PIN_RECEIVE 7
+#define TOUCH_PIN_SEND 3
+#define TOUCH_PIN_RECEIVE 4
 #define TOUCH_LONG 1000
 #define TOUCH_THRESHOLD 200
  

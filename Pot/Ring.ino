@@ -2,7 +2,7 @@
  * Ring Animation
  */
 
-#define RING_PIN 4
+#define RING_PIN 2
 #define RING_PRECISION 100
 #define RING_INTERVAL 4
 
