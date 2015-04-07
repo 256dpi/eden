@@ -7,6 +7,7 @@
 
 #define TEMPERATURE_PIN 1
 #define TEMPERATURE_INTERVAL 3000
+#define TEMPERATURE_CORRECTION -13
 
 /* --------------------------------------------------- */
 
@@ -24,7 +25,7 @@ void temperature_read() {
   int v = analogRead(TEMPERATURE_PIN);
   
   if(v != temperature_history) {
-    temperature_change(temperature_convert(v));
+    temperature_change(temperature_convert(v) + TEMPERATURE_CORRECTION);
     temperature_history = v;
   }
 }

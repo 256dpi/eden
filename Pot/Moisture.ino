@@ -8,7 +8,7 @@
 #define MOISTURE_PIN 0
 #define MOISTURE_INTERVAL 3000
 #define MOISTURE_MIN 550
-#define MOISTURE_MAX 750
+#define MOISTURE_MAX 650
 
 /* --------------------------------------------------- */
 
