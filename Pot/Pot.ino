@@ -11,8 +11,7 @@
 /* --------------------------------------------------- */
 
 #include <Bridge.h>
-#include <YunClient.h>
-#include <MQTTClient.h>
+#include <YunMQTTClient.h>
 
 const char * pot_id = ID;
 const char * pot_key = KEY;
@@ -27,8 +26,7 @@ float pot_moisture = 50.0;
 
 char pot_topic_buffer[32];
 
-YunClient net;
-MQTTClient client("connect.shiftr.io", 1883, net);
+YunMQTTClient client("connect.shiftr.io", 1883);
 
 void setup() {
   Bridge.begin();
