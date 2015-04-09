@@ -5,6 +5,7 @@ class Pot {
   float temperature = 0;
   float light = 0;
   String touch = "";
+  int channel = 0;
  
   Integer touchTime = 0;  
   
@@ -22,7 +23,7 @@ class Pot {
     text("M: " + moisture + "%", width/2, y + 50);
     text("C: " + temperature + "°", width/2, y + 100);
     text("L: " + light + "%", width/2, y + 150);
-    text("T: " + touch, width/2, y + 200);
+    text("T: " + touch + " C: " + channel, width/2, y + 200);
   }
   
   void handle(String[] segments, byte[] payload) {
@@ -37,6 +38,8 @@ class Pot {
     } else if(segments[1].equals("touch")) {
       touch = segments[2];
       touchTime = millis();
-    }
+    } else if(segments[1].equals("channel")) {
+      channel = parseInt(new String(payload));
+    } 
   }
 }

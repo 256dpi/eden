@@ -23,6 +23,7 @@ boolean pot_booted = false;
 float pot_temperature = 24.0;
 float pot_light = 50.0;
 float pot_moisture = 50.0;
+int pot_channel = 0;
 
 char pot_topic_buffer[32];
 
@@ -53,6 +54,7 @@ void loop() {
     touch_loop();
     temperature_loop();
     light_loop();
+    channel_loop();
     alarm_loop(pot_moisture);
     state_loop(pot_moisture, pot_light, pot_temperature);
 
@@ -119,5 +121,12 @@ void light_change(float value) {
 void alarm_trigger() {
   client.publish(make_topic("alarm"), pot_id);
   state_alarm();
+}
+
+/* Channel */
+
+void channel_selected(int value) {
+  pot_channel = value;
+  client.publish(make_topic("channel"), String(value));
 }
 
