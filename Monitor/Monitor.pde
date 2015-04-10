@@ -24,7 +24,6 @@ void setup() {
   client.connect("mqtt://5938e5400448b62b:e53d9b341079b265ec2ea7a3da6a6fe0@connect.shiftr.io", "controller");
   client.subscribe("+/data/+");
   client.subscribe("+/touch/+");
-  client.subscribe("+/channel");
   
   fill(0);
   textSize(40);
