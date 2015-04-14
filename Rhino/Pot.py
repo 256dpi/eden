@@ -1,9 +1,10 @@
 import rhinoscript as rs
 
 # get all user data
-innerTopD = rs.userinterface.GetInteger("Inner Top Diameter", 180)
-innerBottomD = rs.userinterface.GetInteger("Inner Bottom Diameter", 120)
-innerH = rs.userinterface.GetInteger("Inner Height", 170)
+innerTopD = rs.userinterface.GetInteger("Inner Top Diameter", 140)
+innerBottomD = rs.userinterface.GetInteger("Inner Bottom Diameter", 110)
+outerBottomD = rs.userinterface.GetInteger("Outer Bottom Diameter", 105)
+innerH = rs.userinterface.GetInteger("Inner Height", 140)
 
 # pot values
 thickness = 5
@@ -11,10 +12,10 @@ bellyRatio = 0.8
 bellyPosition = 0.7
 
 # ring values
-ringOuterD = 46
-ringInnerD = 30
-ringAngle = 4
-ringInset = -3
+ringOuterD = 50
+ringInnerD = 25
+ringAngle = 3.5
+ringInset = -5
 ringPosition = 0.7
 
 # arduino inlet
@@ -36,11 +37,12 @@ middleY = innerMiddleY + thickness
 radiusTop = innerTopD / 2
 radiusMiddle = innerMiddleD / 2
 radiusBottom = innerBottomD / 2
+radiusGround = outerBottomD / 2
 
 # draw hull outline
-bottomOuterLine = rs.curve.AddLine([0, 0, 0], [radiusBottom, 0, 0])
+bottomOuterLine = rs.curve.AddLine([0, 0, 0], [radiusGround, 0, 0])
 bottomInnerLine = rs.curve.AddLine([0, 0, innerBottomY], [radiusBottom - thickness, 0, innerBottomY])
-outerHullLine = rs.curve.AddArc3Pt([radiusBottom, 0, 0], [radiusTop, 0, totalY], [radiusMiddle, 0, middleY])
+outerHullLine = rs.curve.AddArc3Pt([radiusGround, 0, 0], [radiusTop, 0, totalY], [radiusMiddle, 0, middleY])
 innerHullLine = rs.curve.AddLine([radiusBottom - thickness, 0, innerBottomY], [radiusTop - thickness, 0, totalY])
 
 topEdgeLine = rs.curve.AddArc3Pt([radiusTop, 0, totalY], [radiusTop - thickness, 0, totalY],
